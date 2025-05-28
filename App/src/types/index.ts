@@ -19,7 +19,7 @@ export interface CartItem extends Product {
 export interface User {
   id: number;
   username: string;
-  email: string;
+
   firstName: string;
 
   token: string;

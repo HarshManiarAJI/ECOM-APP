@@ -27,7 +27,7 @@ const App = () => {
       setAuth({
         id: 1,
         username,
-        email: `${username}@example.com`,
+
         firstName: username,
         token: `${username}:${password}`,
       });

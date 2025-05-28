@@ -161,6 +161,7 @@ export const useStore = create<StoreState>()(
             items: [],
             total: 0,
           },
+          favorites: [],
         });
       },
 
