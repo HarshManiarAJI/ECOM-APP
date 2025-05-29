@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { auth } = useStore();
-  return auth.isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  return auth.isAuthenticated ? <>{children}</ > : <Navigate to="/login" />;
 };
 
 const App = () => {

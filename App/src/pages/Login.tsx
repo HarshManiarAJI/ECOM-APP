@@ -58,13 +58,14 @@ export const Login = () => {
         <h1 className="text-2xl font-bold text-center mb-6">Sign in</h1>
         
         {/* Login form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" data-test='loginForm'>
           {/* Username field */}
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
             </label>
             <input
+              data-test='inpUsername'
               id="username"
               name="username"
               type="text"
@@ -83,6 +84,7 @@ export const Login = () => {
               Password
             </label>
             <input
+              data-test='inpPassword'
               id="password"
               name="password"
               type="password"
@@ -102,6 +104,7 @@ export const Login = () => {
           {/* Submit button */}
           <button
             type="submit"
+            data-test='btnLogin'
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
             Sign In

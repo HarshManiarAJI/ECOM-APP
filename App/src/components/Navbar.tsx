@@ -25,7 +25,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white shadow">
+    <nav className="bg-blue-600 text-white shadow" data-test="navbar">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Store brand/logo with home link */}
@@ -39,9 +39,10 @@ export const Navbar = () => {
             {auth.isAuthenticated ? (
               <>
                 {/* Welcome message and authenticated user actions */}
-                <span className="text-sm">Welcome, {auth.user?.firstName}</span>
+                <span className="text-sm" data-test="welcomeMessage">Welcome, {auth.user?.firstName}</span>
                 {/* Logout button */}
                 <button
+                data-test="btnLogout"
                   onClick={handleLogout}
                   className="flex items-center space-x-1 hover:underline"
                 >
@@ -50,6 +51,7 @@ export const Navbar = () => {
                 </button>
                 {/* Favorites link with dynamic icon based on current route */}
                 <RouterLink
+                data-test="btnFavorites"
                   to="/favorites"
                   className={`flex space-x-1 hover:underline transition-colors ${
                     useLocation().pathname === '/favorites' ? 'text-pink-500' : ''
@@ -70,12 +72,12 @@ export const Navbar = () => {
                 className="flex items-center space-x-1 hover:underline"
               >
                 <LogIn className="w-5 h-5" />
-                <span>Login</span>
+                <span data-test="btnLogin">Login</span>
               </RouterLink>
             )}
 
             {/* Shopping cart with item count badge */}
-            <RouterLink to="/cart" className="relative">
+            <RouterLink to="/cart" className="relative" data-test="btnCart">
               <ShoppingCart className="w-5 h-5" />
               {/* Show item count badge only if cart has items */}
               {cart.items.length > 0 && (
@@ -86,7 +88,7 @@ export const Navbar = () => {
             </RouterLink>
 
             {/* Cart total display */}
-            <span className="text-sm">Total: ${cart.total.toFixed(2)}</span>
+            <span className="text-sm" data-test="txtCartTotal">Total: ${cart.total.toFixed(2)}</span>
           </div>
         </div>
       </div>

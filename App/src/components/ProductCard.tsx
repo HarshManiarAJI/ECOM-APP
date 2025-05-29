@@ -81,7 +81,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div 
       className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full transition hover:shadow-lg relative cursor-pointer" 
-      onClick={handleProductClick}
+      onClick={handleProductClick} data-test="productCard"
     >
       {/* Favorite Button - Positioned absolutely in top-right */}
       <button
@@ -124,6 +124,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             // Quantity adjustment controls for items in cart
             <div className="flex-1 flex items-center gap-2">
               <button
+                data-test="btnDecreaseQuantity"
                 onClick={() => handleQuantityChange(-1)}
                 className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
                 disabled={cartItem?.quantity === 1}
@@ -131,11 +132,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 <Minus className="w-4 h-4" />
               </button>
               
-              <span className="flex-1 text-center font-medium">
+              <span className="flex-1 text-center font-medium" data-test="txtCartItemQuantity">
                 {cartItem?.quantity || 0} in cart
               </span>
 
               <button
+              data-test="btnIncreaseQuantity"
                 onClick={() => handleQuantityChange(1)}
                 className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
               >
@@ -145,6 +147,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           ) : (
             // Add to cart button for items not in cart
             <button
+              data-test="btnAddToCart"
               onClick={handleAddToCart}
               className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition"
             >
@@ -156,6 +159,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {/* Remove from cart button - Only shown for items in cart */}
           {isInCart(product.id) && (
             <button
+              data-test="btnRemoveFromCart"
               onClick={() => removeFromCart(product.id)}
               className="bg-red-500 hover:bg-red-600 text-white rounded px-3 py-2 flex items-center justify-center"
               title="Remove from cart"
@@ -169,6 +173,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         {isInCart(product.id) && (
           <>
             <button
+              data-test="btnViewInCart"
               onClick={() => navigate('/cart')}
               className="mt-2 w-full text-white font-medium text-sm font-medium bg-green-700 rounded p-2 flex items-center justify-center hover:bg-green-800 transition "
             >

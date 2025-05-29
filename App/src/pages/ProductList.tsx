@@ -111,13 +111,14 @@ export const ProductList = () => {
     <div className="w-full min-h-screen p-4 md:p-6 lg:p-8 bg-white text-gray-900">
       <div className="w-full max-w-7xl mx-auto">
         {/* Filter Section - Category, Sort, and Search controls */}
-        <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6">
+        <div className="bg-white p-4 md:p-6 rounded-lg shadow mb-6" data-test="secFilters">
           <div className="flex items-center gap-2 mb-4 text-lg font-semibold">
             <Filter className="w-5 h-5" />
             Filters
           </div>
           <div className="flex flex-col md:flex-row gap-4">
             <select
+            data-test="selCategory"
               value={filter.category}
               onChange={(e) => handleCategoryChange(e.target.value)}
               className="flex-1 border border-gray-300 rounded px-3 py-2 bg-white"
@@ -129,6 +130,7 @@ export const ProductList = () => {
             </select>
 
             <select
+            data-test="selSort"
               value={filter.sortBy}
               onChange={(e) => handleSortChange(e.target.value as any)}
               className="flex-1 border border-gray-300 rounded px-3 py-2 bg-white"
@@ -140,6 +142,7 @@ export const ProductList = () => {
 
             <div className="relative flex-1">
               <input
+                data-test="inpSearch"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
@@ -159,7 +162,7 @@ export const ProductList = () => {
         ) : (
           <>
             {/* Product Grid - Responsive layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-test="secProducts">
               {paginatedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -167,7 +170,7 @@ export const ProductList = () => {
 
             {/* Pagination Controls - Only shown when needed */}
             {!filter.category && !searchQuery && totalPages > 1 && (
-              <div className="flex justify-center mt-8 space-x-2">
+              <div className="flex justify-center mt-8 space-x-2" data-test="secProductsPagination">
                 {Array.from({ length: totalPages }, (_, i) => (
                   <button
                     key={i + 1}

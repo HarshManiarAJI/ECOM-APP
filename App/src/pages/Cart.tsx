@@ -94,11 +94,11 @@ export const Cart = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 mb-10 px-4">
+    <div className="max-w-6xl mx-auto mt-10 mb-10 px-4" data-test="secCartPage">
       <h2 className="text-3xl font-bold mb-6">Shopping Cart</h2>
 
       {/* Cart Table - Displays product list with actions */}
-      <div className="overflow-x-auto bg-white shadow rounded-md">
+      <div className="overflow-x-auto bg-white shadow rounded-md" >
         <table className="min-w-full table-auto border-collapse">
           <thead className="bg-gray-100 text-left text-sm font-medium text-gray-700">
             <tr>

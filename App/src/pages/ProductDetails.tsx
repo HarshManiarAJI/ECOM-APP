@@ -1,9 +1,11 @@
 // Import necessary hooks and components
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { Product } from "../types";
-import { Loader2 } from "lucide-react";
+import { Loader2, ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
+import { useStore } from "../store/store";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 /**
  * ProductDetails Component
@@ -11,13 +13,48 @@ import { Loader2 } from "lucide-react";
  * Including images, specifications, pricing, and reviews
  */
 const ProductDetails = () => {
-  // Get product ID from URL parameters
+  // Get product ID from URL parameters and navigation
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  // Get necessary actions and state from global store
+  const { auth, addToCart, removeFromCart, isInCart, cart, updateQuantity } =
+    useStore();
 
   // State management
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Find this product in the cart if it exists
+  const cartItem = cart.items.find((item) => product && item.id === product.id);
+
+  /**
+   * Handle adding product to cart
+   * Redirects to login if user is not authenticated
+   */
+  const handleAddToCart = () => {
+    if (!product) return;
+    if (!auth.isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+    if (!isInCart(product.id)) {
+      addToCart(product);
+    }
+  };
+
+  /**
+   * Handle quantity changes for products in cart
+   * @param change - Amount to change quantity by (+1 or -1)
+   */
+  const handleQuantityChange = (change: number) => {
+    if (!cartItem || !product) return;
+    const newQuantity = cartItem.quantity + change;
+    if (newQuantity >= 1) {
+      updateQuantity(product.id, newQuantity);
+    }
+  };
 
   /**
    * Fetch product details when component mounts or URL parameters change
@@ -94,15 +131,93 @@ const ProductDetails = () => {
         {/* Right column: Product Information */}
         <div className="space-y-6">
           {/* Product title and description */}
-          <h1 className="text-4xl font-bold text-gray-900">{product.title}</h1>
-          <p className="text-gray-600 leading-relaxed">{product.description}</p>
+          <h1
+            className="text-4xl font-bold text-gray-900"
+            data-test="txtProductName"
+          >
+            {product.title}
+          </h1>
+          <p
+            className="text-gray-600 leading-relaxed"
+            data-test="txtProductDescription"
+          >
+            {product.description}
+          </p>
 
           {/* Pricing section */}
           <div className="pt-4 border-t space-y-2">
-            <p className="text-3xl font-bold text-blue-700">${product.price}</p>
+            <p
+              className="text-3xl font-bold text-blue-700"
+              data-test="txtProductPrice"
+            >
+              ${product.price}
+            </p>
             <p className="text-green-600 font-medium">
               {product.discountPercentage}% OFF
             </p>
+          </div>
+
+          {/* Cart Controls Section */}
+          <div className="pt-4 border-t">
+            <div className="flex gap-4">
+              {isInCart(product.id) ? (
+                <>
+                  {/* Quantity adjustment controls */}
+                  <div className="flex-1 flex items-center gap-2 bg-gray-100 rounded-lg p-2">
+                    <button
+                      onClick={() => handleQuantityChange(-1)}
+                      className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
+                      disabled={cartItem?.quantity === 1}
+                    >
+                      <Minus className="w-5 h-5" />
+                    </button>
+
+                    <span className="flex-1 text-center font-medium text-lg">
+                      {cartItem?.quantity || 0} in cart
+                    </span>
+
+                    <button
+                      onClick={() => handleQuantityChange(1)}
+                      className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
+                    >
+                      <Plus className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Remove from cart button */}
+                  <button
+                    data-test="btnRemoveFromCart"
+                    onClick={() => product && removeFromCart(product.id)}
+                    className="bg-red-500 hover:bg-red-600 text-white rounded px-6 py-2 flex items-center gap-2"
+                    title="Remove from cart"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                    Remove
+                  </button>
+                </>
+              ) : (
+                // Add to cart button
+                <button
+                  data-test="btnAddToCart"
+                  onClick={handleAddToCart}
+                  className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg text-lg transition"
+                >
+                  <ShoppingCart className="w-6 h-6" />
+                  Add to Cart
+                </button>
+              )}
+            </div>
+
+            {/* View Cart button - Only shown for items in cart */}
+            {isInCart(product.id) && (
+              <button
+                onClick={() => navigate("/cart")}
+                className="mt-4 w-full text-white font-medium text-lg bg-green-700 rounded-lg p-3 flex items-center justify-center gap-2 hover:bg-green-800 transition"
+              >
+                <ShoppingCartCheckoutIcon className="w-6 h-6" />
+                View in Cart
+              </button>
+            )}
           </div>
 
           {/* Product specifications grid */}
