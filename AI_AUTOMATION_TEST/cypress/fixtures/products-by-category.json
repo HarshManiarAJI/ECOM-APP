@@ -1,0 +1,11 @@
+{
+  "__description": "Response from GET /products/category/{category}",
+  "__endpoint": "api.products.getByCategory(category)",
+  "__comment": "Please add the actual response from dummyjson.com/products/category/smartphones endpoint (or any other category)",
+  "__expectedStructure": {
+    "products": "Array of products in the category",
+    "total": "Total number of products in category",
+    "skip": "Number of products skipped",
+    "limit": "Number of products per page"
+  }
+}

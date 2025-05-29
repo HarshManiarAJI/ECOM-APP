@@ -1,0 +1,18 @@
+{
+  "__description": "Response from GET /products/{id}",
+  "__endpoint": "api.products.getById(id)",
+  "__comment": "Please add the actual response from dummyjson.com/products/1 endpoint (or any other product ID)",
+  "__expectedStructure": {
+    "id": "Product ID",
+    "title": "Product title",
+    "description": "Product description",
+    "price": "Product price",
+    "discountPercentage": "Discount percentage",
+    "rating": "Product rating",
+    "stock": "Stock quantity",
+    "brand": "Product brand",
+    "category": "Product category",
+    "thumbnail": "Thumbnail URL",
+    "images": "Array of image URLs"
+  }
+}

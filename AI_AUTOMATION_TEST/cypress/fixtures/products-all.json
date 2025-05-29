@@ -1,0 +1,11 @@
+{
+  "__description": "Response from GET /products?limit=12&skip=0",
+  "__endpoint": "api.products.getAll()",
+  "__comment": "Please add the actual response from dummyjson.com/products endpoint with pagination (limit=12, skip=0)",
+  "__expectedStructure": {
+    "products": "Array of product objects",
+    "total": "Total number of products",
+    "skip": "Number of products skipped",
+    "limit": "Number of products per page"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "__description": "Response from GET /products/search?q={query}",
+  "__endpoint": "api.products.search(query)",
+  "__comment": "Please add the actual response from dummyjson.com/products/search?q=phone endpoint (or any other search term)",
+  "__expectedStructure": {
+    "products": "Array of products matching search",
+    "total": "Total number of matching products",
+    "skip": "Number of products skipped",
+    "limit": "Number of products per page"
+  }
+}
