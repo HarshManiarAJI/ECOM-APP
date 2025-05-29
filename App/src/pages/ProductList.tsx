@@ -159,17 +159,33 @@ export const ProductList = () => {
           <div className="flex justify-center mt-10">
             <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
-        ) : (
-          <>
-            {/* Product Grid - Responsive layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-test="secProducts">
-              {paginatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+        ) : (          <>
+            {/* Empty State Message */}
+            {paginatedProducts.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16" data-test="secEmptyProducts">
+                <div className="w-16 h-16 mb-4 text-gray-300">
+                  <Search className="w-full h-full" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-600 mb-2">No Products Available</h3>
+                <p className="text-gray-500">
+                  {searchQuery 
+                    ? `No products found matching "${searchQuery}"`
+                    : filter.category 
+                      ? `No products available in "${filter.category}" category`
+                      : 'No products are currently available'}
+                </p>
+              </div>
+            ) : (
+              /* Product Grid - Responsive layout */
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-test="secProducts">
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
 
             {/* Pagination Controls - Only shown when needed */}
-            {!filter.category && !searchQuery && totalPages > 1 && (
+            {!filter.category && !searchQuery && totalPages > 1 && paginatedProducts.length > 0 && (
               <div className="flex justify-center mt-8 space-x-2" data-test="secProductsPagination">
                 {Array.from({ length: totalPages }, (_, i) => (
                   <button

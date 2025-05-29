@@ -81,7 +81,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div 
       className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full transition hover:shadow-lg relative cursor-pointer" 
-      onClick={handleProductClick} data-test="productCard"
+      onClick={handleProductClick} data-test="secProductCard"
     >
       {/* Favorite Button - Positioned absolutely in top-right */}
       <button
