@@ -66,6 +66,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const handleFavoriteClick = () => {
     if (isFavorite(product.id)) {
       removeFromFavorites(product.id);
+      if (window.confirm('Are you sure you want to remove this product from your favorites?')) {
+        removeFromFavorites(product.id);
+      }
     } else {
       addToFavorites(product);
     }
@@ -126,18 +129,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <button
                 data-test="btnDecreaseQuantity"
                 onClick={() => handleQuantityChange(-1)}
-                className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
+                className={`bg-gray-200 hover:bg-gray-300 p-2 rounded ${cartItem?.quantity === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
                 disabled={cartItem?.quantity === 1}
               >
                 <Minus className="w-4 h-4" />
               </button>
-              
+
               <span className="flex-1 text-center font-medium" data-test="txtCartItemQuantity">
                 {cartItem?.quantity || 0} in cart
               </span>
 
               <button
-              data-test="btnIncreaseQuantity"
+                data-test="btnIncreaseQuantity"
                 onClick={() => handleQuantityChange(1)}
                 className="bg-gray-200 hover:bg-gray-300 p-2 rounded"
               >

@@ -88,7 +88,10 @@ export const Navbar = () => {
             </RouterLink>
 
             {/* Cart total display */}
-            <span className="text-sm" data-test="txtCartTotal">Total: ${cart.total.toFixed(2)}</span>
+
+            <span className="text-sm" data-test="txtCartTotal">
+              Total: ${cart.total && cart.total > 0 ? cart.total.toFixed(2) : '0.00'}
+            </span>
           </div>
         </div>
       </div>
