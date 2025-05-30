@@ -46,7 +46,7 @@ const Favorites = () => {
         {/* Conditional Rendering: Empty State or Product Grid */}
         {favorites.length === 0 ? (
           // Empty State with centered heart icon and message
-          <div className="flex flex-col items-center justify-center py-16">
+          <div className="flex flex-col items-center justify-center py-16" data-test="emptyFavoritesSection">
             <Heart className="w-16 h-16 text-gray-300 mb-4" />
             <p className="text-xl text-gray-500">No favorite products yet</p>
           </div>

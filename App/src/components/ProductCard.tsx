@@ -88,6 +88,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     >
       {/* Favorite Button - Positioned absolutely in top-right */}
       <button
+      data-test="btnFavoriteProduct"
         onClick={(e) => {
           e.stopPropagation();  // Prevent triggering card click
           handleFavoriteClick();
